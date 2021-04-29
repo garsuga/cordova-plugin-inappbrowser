@@ -70,7 +70,20 @@
                 this.channels[eventname].unsubscribe(f);
             }
         },
-
+        ///////////////////////////////////////////////////
+        //Gets cookie by Domain from the inAppWebView and adds it to the cordovaWebView.
+        getCookies: function(cookieDetails, cb) {
+            if(cookieDetails.url) {
+                exec(cb, null, "InAppBrowser", "getCookies", [cookieDetails.url, !!cb])
+            } else {
+                throw new Error('getCookie requires a url to be specified')
+            }
+        },
+        clearCookies: function(eventname) {
+            console.log("TEST??");
+            exec(null, null, "InAppBrowser", "clearCookies", []);
+        },
+        ///////////////////////////////////////////
         executeScript: function (injectDetails, cb) {
             if (injectDetails.code) {
                 exec(cb, null, 'InAppBrowser', 'injectScriptCode', [injectDetails.code, !!cb]);
